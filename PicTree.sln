@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicTree", "PicTree.csproj", "{E907BF97-2AA7-4364-A733-DF5ABB4528FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E907BF97-2AA7-4364-A733-DF5ABB4528FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E907BF97-2AA7-4364-A733-DF5ABB4528FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E907BF97-2AA7-4364-A733-DF5ABB4528FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E907BF97-2AA7-4364-A733-DF5ABB4528FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF21C34C-C8D2-4221-8CF5-4473B408BED2}
+	EndGlobalSection
+EndGlobal
