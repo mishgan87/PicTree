@@ -20,9 +20,16 @@ namespace PicTree
 
 		private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            FillFilesTree();
+        }
+        /// <summary>
+        /// Вызов диалога открытия папки и заполнение дерева файлами из этой папки
+        /// </summary>
+        private void FillFilesTree()
+        {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                treeView1.Nodes.Clear();
+                treeViewPicture.Nodes.Clear();
                 TreeNode rootNode;
                 var path = folderBrowserDialog1.SelectedPath;
                 DirectoryInfo info = new DirectoryInfo(path);
@@ -36,16 +43,25 @@ namespace PicTree
                     {
                         rootNode = new TreeNode(fileInfo.Name);
                         rootNode.Tag = fileInfo.FullName;
-                        treeView1.Nodes.Add(rootNode);
+                        treeViewPicture.Nodes.Add(rootNode);
+                    }
+                    if (treeViewPicture.Nodes.Count > 0)
+                    {
+                        treeViewPicture.SelectedNode = treeViewPicture.Nodes[0];
+                        treeViewPicture.Focus();
                     }
                 }
             }
         }
-		private void TreeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-		{
+        /// <summary>
+        /// Отображает картинку на PictureBox
+        /// </summary>
+        /// <param name="treeNode">Узел дерева, у которого в поле Tag записан путь к изображению</param>
+        private void ShowPicture(TreeNode treeNode)
+        {
             try
             {
-                pictureBox1.Image = new Bitmap(e.Node.Tag.ToString());
+                pictureBox1.Image = new Bitmap(treeNode.Tag.ToString());
                 pictureBox1.Invalidate();
             }
             catch
@@ -53,5 +69,38 @@ namespace PicTree
                 MessageBox.Show("Невозможно открыть выбранный файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-	}
+        private void ButtonLoad_Click(object sender, EventArgs e)
+        {
+            FillFilesTree();
+        }
+
+        private void ButtonNext_Click_1(object sender, EventArgs e)
+        {
+            if (treeViewPicture.SelectedNode.Index == treeViewPicture.Nodes.Count - 1)
+            {
+                treeViewPicture.SelectedNode = treeViewPicture.Nodes[0];
+            }
+            else
+            {
+                treeViewPicture.SelectedNode = treeViewPicture.SelectedNode.NextNode;
+            }
+        }
+
+        private void buttonPrev_Click(object sender, EventArgs e)
+        {
+            if (treeViewPicture.SelectedNode.Index == 0)
+            {
+                treeViewPicture.SelectedNode = treeViewPicture.Nodes[treeViewPicture.Nodes.Count - 1];
+            }
+            else
+            {
+                treeViewPicture.SelectedNode = treeViewPicture.SelectedNode.PrevNode;
+            }
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
+
+        private void treeViewPicture_AfterSelect_1(object sender, TreeViewEventArgs e) => ShowPicture(treeViewPicture.SelectedNode);
+
+    }
 }
