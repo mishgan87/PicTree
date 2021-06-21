@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace PicTree
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
         }
 
-		private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+		private void OpenFileMenuItem_Click(object sender, EventArgs e)
 		{
             FillFilesTree();
         }
@@ -61,8 +61,8 @@ namespace PicTree
         {
             try
             {
-                pictureBox1.Image = new Bitmap(treeNode.Tag.ToString());
-                pictureBox1.Invalidate();
+                pictureBoxImage.Image = new Bitmap(treeNode.Tag.ToString());
+                pictureBoxImage.Invalidate();
             }
             catch
             {
@@ -74,7 +74,7 @@ namespace PicTree
             FillFilesTree();
         }
 
-        private void ButtonNext_Click_1(object sender, EventArgs e)
+        private void ButtonNext_Click(object sender, EventArgs e)
         {
             if (treeViewPicture.SelectedNode.Index == treeViewPicture.Nodes.Count - 1)
             {
@@ -98,9 +98,20 @@ namespace PicTree
             }
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
+        private void ExitMenuItem_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void treeViewPicture_AfterSelect_1(object sender, TreeViewEventArgs e) => ShowPicture(treeViewPicture.SelectedNode);
+        private void TreeViewPicture_AfterSelect(object sender, TreeViewEventArgs e) => ShowPicture(treeViewPicture.SelectedNode);
+		private void SettingsMenuItem_Click(object sender, EventArgs e) => ShowSettings();
 
-    }
+		private void ButtonSettings_Click(object sender, EventArgs e) => ShowSettings();
+		private void ShowSettings()
+		{
+            FormSettings formSettings = new FormSettings(treeViewPicture.Font, pictureBoxImage.SizeMode);
+            if (formSettings.ShowDialog() != DialogResult.Cancel)
+            {
+                treeViewPicture.Font = formSettings.fontSet;
+                pictureBoxImage.SizeMode = formSettings.sizeModeSet;
+            }
+        }
+	}
 }
